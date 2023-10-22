@@ -1,0 +1,8 @@
+TODO
+- get graphql up and running with clean separation from the database
+- get the database returning the stuff I want for graphql
+
+Done
+- Setup postgres docker container that I can run locally
+- connect to postgres container and run a query
+- connect to postgres container from go and run a query

@@ -1,0 +1,6 @@
+/postgres-docker
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
