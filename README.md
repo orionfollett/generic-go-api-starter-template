@@ -18,9 +18,7 @@ gqlgen?
 
 Database migration tool: leaning towards golang-migrate: https://github.com/golang-migrate/migrate
 
-Logging, std library
-
-Infrastructure: Terraform, aws provider most likely
+Infrastructure: Terraform, aws provider most likely, logging, metrics, scaling, kubernetes, networking etc
 
 CICD: github actions since this is popular
 
@@ -67,6 +65,38 @@ Dependencies should be minimal so that code doesn't rot as quickly
 - configuration should be managed by config files or env files, and should not involve modifying code
 
 - generally should follow 12 factor app practices
+
+
+Proposed Project Layout:
+
+API, with clean separation to DB layer
+Would support swapping out DB layer, or doing a "scientist"
+approach where you have multiple DB layers
+
+Infrastructure has clean decoupling from app layer
+
+Where is business logic?
+
+- API is thin layer over DB. API is like the UI, but should be as dumb as possible
+it only validates user input so that DB doesn't throw errors. It also handles DB errors
+more gracefully and surfaces them in a readable way to the user
+
+- API has all of the business logic, just treating the DB layer as an api that can 
+access the data store. 
+
+- mix of both
+
+Pros and Cons
+DB being business layer:
+Pros:
+- DB business rules are more likely to be enforced by all clients to the db
+- DB business rules are potentially more performant because any checks for data can 
+be done at the db level without a round trip and without data copying
+
+Cons:
+- logic can be harder to write in SQL, slower development
+- couples our business to the database, making it hard to swap databases
+
 
 
 
