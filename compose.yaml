@@ -1,0 +1,10 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+    container_name: pgsql-dev
+    volumes:
+      - ${PWD}/postgres-docker:/var/lib/postgresql/data
