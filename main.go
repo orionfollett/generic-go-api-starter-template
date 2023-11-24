@@ -9,10 +9,10 @@ import (
 
 	_ "github.com/mattn/go-sqlite3"
 
-	"tutorial.sqlc.dev/app/tutorial"
+	"tutorial.sqlc.dev/app/db/tutorial"
 )
 
-//go:embed sql/schema/schema.sql
+//go:embed db/sql/schema/schema.sql
 var ddl string
 
 func run() error {

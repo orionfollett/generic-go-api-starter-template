@@ -95,7 +95,42 @@ be done at the db level without a round trip and without data copying
 
 Cons:
 - logic can be harder to write in SQL, slower development
-- couples our business to the database, making it hard to swap databases
+- couples our business to the database, making it hard to swap databases - doesnt seem like a big con, 
+seems more likely we could switch our API layer, but I guess it's possible we change our database
+
+But if we swap our database in any significant way (like switch from relational to not, then its probably going to be a lot of work no 
+matter how you slice it)
+
+
+
+
+----------------------------------------
+
+Good decoupling would say treat your data store as one component
+and the API as another, and they should be easily swapped out with something else
+
+
+Another middle ground approach: put logic where it is most efficient to compute:
+
+Some logic lives best in the DB, other logic is best in the API.
+
+Anything that requiers data already stored or calculated in the DB, should live in the DB, dont make round trips for no reason.
+
+Anything that could be validated before it hits the DB, without querying more data (for example, this field requires a string, but an int was given)
+can be handled by the API
+
+
+
+Good decoupling from the DB can still be achieved if business logic lives in both, because it is too restrictive to say
+that business logic can ONLY exist in one or another. 
+
+In order to support good decoupling...
+
+API functions call DB functions, DB functions never call anything that lives in the API module, it's a one way communication
+DB functions in GO are dumb and just map to SQL, this middle layer should largely be handled by sqlc
+
+With that middle layer, it should be easy to replace the API layer easily, and still access all the DB layer stuff
+Or vice versa, swapping out the DB layer would mean just supplying all of the DB functions currently defined
 
 
 
