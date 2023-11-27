@@ -5,7 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	graph "orion/generic-api-starter/api/generated"
+	generated "orion/generic-api-starter/api/generated"
+	resolvers "orion/generic-api-starter/api/resolvers"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	_ "github.com/99designs/gqlgen/graphql/introspection"
@@ -22,7 +23,7 @@ func main() {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &resolvers.Resolver{}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
