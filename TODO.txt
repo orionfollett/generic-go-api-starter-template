@@ -1,2 +1,7 @@
 Switch from sqlite to postgres
 
+connect API to DB
+
+figure out workflow for code generation
+
+

@@ -1,4 +1,4 @@
-module tutorial.sqlc.dev/app
+module orion/generic-api-starter
 
 go 1.21.3
 

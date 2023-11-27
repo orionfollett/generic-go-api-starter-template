@@ -5,11 +5,10 @@ import (
 	"database/sql"
 	_ "embed"
 	"log"
+	"orion/generic-api-starter/db/tutorial"
 	"reflect"
 
 	_ "github.com/mattn/go-sqlite3"
-
-	"tutorial.sqlc.dev/app/db/tutorial"
 )
 
 //go:embed db/sql/schema/schema.sql
