@@ -1,9 +1,7 @@
+Switch DB to use postgres
 
-
-
+Set up db migration tool
 
 connect API to DB
 
 figure out workflow for code generation
-
-Switch from sqlite to postgres

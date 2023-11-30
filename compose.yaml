@@ -7,4 +7,4 @@ services:
       - 5432:5432
     container_name: pgsql-dev
     volumes:
-      - ${PWD}/postgres-docker:/var/lib/postgresql/data
+      - ${PWD}/tmp/local-test-db-volume:/var/lib/postgresql/data
