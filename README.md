@@ -17,6 +17,11 @@ API framework? Or just use standard library
 gqlgen?
 
 Database migration tool: golang-migrate: https://github.com/golang-migrate/migrate
+We only use the CLI version of this tool, to minimize dependency on it. Theoretically,
+this tool is pretty easy to write ourselves if we ever dont like it,
+we are keeping our migration workflow lightweight, basically run the upgrade scripts, or run the downgrade scripts
+
+We may want to implement a version feature that stores the version of our database. We can see about that.
 
 Infrastructure: Terraform, aws provider most likely, logging, metrics, scaling, kubernetes, networking etc
 
@@ -25,13 +30,6 @@ CICD: github actions since this is popular
 Testing: not sure yet
 
 Git
-
-
-## Build Application
-go build -o output/build.exe
-
-## Run Main Application
-go run main.go
 
 ## Docker Compose
 '''docker compose up''' To create the db in a locally running container: connection string is: "postgresql://postgres:example@localhost:5432"

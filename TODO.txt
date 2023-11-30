@@ -1,4 +1,3 @@
-Switch DB to use postgres
 
 Set up db migration tool
 
