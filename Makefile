@@ -1,4 +1,5 @@
-# build:
+build-server:
+	go build -o ./build
 
 run:
 	go run server.go
