@@ -2,32 +2,24 @@ package main
 
 import (
 	"context"
-	"database/sql"
-	_ "embed"
 	"log"
 	sqlc "orion/generic-api-starter/db/generated"
 	"reflect"
 
-	_ "github.com/mattn/go-sqlite3"
+	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgtype"
 )
-
-//go:embed sql/schema/schema.sql
-var ddl string
 
 func run() error {
 	ctx := context.Background()
 
-	db, err := sql.Open("sqlite3", ":memory:")
+	conn, err := pgx.Connect(ctx, "postgres://postgres:example@localhost:5432")
 	if err != nil {
 		return err
 	}
+	defer conn.Close(ctx)
 
-	// create tables
-	if _, err := db.ExecContext(ctx, ddl); err != nil {
-		return err
-	}
-
-	queries := sqlc.New(db)
+	queries := sqlc.New(conn)
 
 	// list all authors
 	authors, err := queries.ListAuthors(ctx)
@@ -39,7 +31,7 @@ func run() error {
 	// create an author
 	insertedAuthor, err := queries.CreateAuthor(ctx, sqlc.CreateAuthorParams{
 		Name: "Brian Kernighan",
-		Bio:  sql.NullString{String: "Co-author of The C Programming Language and The Go Programming Language", Valid: true},
+		Bio:  pgtype.Text{String: "Co-author of The C Programming Language and The Go Programming Language", Valid: true},
 	})
 	if err != nil {
 		return err
