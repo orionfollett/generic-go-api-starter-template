@@ -1,3 +1,12 @@
+## Project Setup
+
+Required CLI Tools for development:
+
+sqlc
+gqlgen
+golang-migrate: install: 'go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest'
+docker
+go
 
 ## Tools
 
@@ -7,14 +16,10 @@ It autogenerates DB Layer code to execute queries that you write in SQL, and map
 typesafe Go structs. Generally each table gets mapped to a struct, and each query to a function.
 SQLC works alongside a DB driver to achieve this. 
 
-PGX: https://github.com/jackc/pgx
-This is a db driver for postgres so that the go standard library can use postgres.
-This is a low level library to establish a db connection and execute queries.
-
-Other Tools:
-API framework? Or just use standard library
-
-gqlgen?
+gqlgen: https://gqlgen.com/
+This tool is controlled by gqlgen.yml.
+It autogenerates graphql mapping code from the graphql schema language.
+It creates resolvers that you can then define to call out to whatever code you want.
 
 Database migration tool: golang-migrate: https://github.com/golang-migrate/migrate
 We only use the CLI version of this tool, to minimize dependency on it. Theoretically,
@@ -29,7 +34,7 @@ CICD: github actions since this is popular
 
 Testing: not sure yet
 
-Git
+Git obviously
 
 ## Docker Compose
 '''docker compose up''' To create the db in a locally running container: connection string is: "postgresql://postgres:example@localhost:5432"

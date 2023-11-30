@@ -4,3 +4,5 @@ Set up db migration tool
 connect API to DB
 
 figure out workflow for code generation
+
+Figure out new developer set up so that tools are all packaged together and one command can prepare the entire dev environment
