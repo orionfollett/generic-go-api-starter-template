@@ -16,7 +16,7 @@ API framework? Or just use standard library
 
 gqlgen?
 
-Database migration tool: leaning towards golang-migrate: https://github.com/golang-migrate/migrate
+Database migration tool: golang-migrate: https://github.com/golang-migrate/migrate
 
 Infrastructure: Terraform, aws provider most likely, logging, metrics, scaling, kubernetes, networking etc
 

@@ -1,0 +1,23 @@
+This directory contains sql files that are parsed by sqlc, a tool that auto generates Go code to run SQL queries and map SQL tables to Go types. 
+The auto generated go code lives in the generated directory.
+
+The queries directory has all queries that we would want to run from Go.
+
+The schema directory has the CURRENT state of the DB. If for example you want to add a new table, 
+you would add the create table here, so that SQLC can generate mapping code for that table, but you would also need
+to perform a database migration in the migration directory.
+
+This may seem repetitive, but its important not to confuse the state of the current DB with the history of DB migrations
+
+
+Potentially there is a better way to combine these two concepts, maybe all of the create tables live here.
+I'm not sure how sqlc handles an alter table?
+
+
+Migrations are more then just creationg tables though, they also potentially will edit, merge, or break  up data models from past db structures,
+so its not really possible to have that all live in this sqlc generated code. I think there will always be an inherent mismatch 
+between the 'migration' code that moves the db atomically from one version state to another, and the mapping code, that represents what 
+you think is the current state of the DB.
+
+I think having the mapping code also be the current state of the DB does not allow for complex migrations where you need to merge data that already
+exists. Its great if you start from a blank state, but that assume we know our data model before any customer data exists, which will never be true.
