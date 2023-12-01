@@ -1,7 +1,10 @@
 
-Set up db migration tool
 
 connect API to DB
+    - when should API make DB connection? probably early in the request cycle, or maybe even outside of the request cycle like
+    at startup
+    
+    - how should db connection details propagate through?
 
 figure out workflow for code generation
 

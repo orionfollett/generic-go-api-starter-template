@@ -15,8 +15,6 @@ import (
 
 const defaultPort = "8080"
 
-//this could be good and modified so codegen automatically runs: go:generate go run golang.org/x/tools/cmd/stringer -type=Pill
-
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
