@@ -24,6 +24,14 @@ gen-db:
 create-migration:
 	go run github.com/golang-migrate/migrate/v4/cmd/migrate create -ext sql -dir db/migrations -seq $(NAME)
 
+up:
+	migrate -database ${POSTGRESQL_URL} -path db/migrations up
+
+down:
+	migrate -database ${POSTGRESQL_URL} -path db/migrations down
+
+#export POSTGRESQL_URL=postgres://postgres:example@localhost:5432/postgres?sslmode=disable
+
 #---install dependencies---
 #go mod tidy
 

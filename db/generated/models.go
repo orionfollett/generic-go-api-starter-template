@@ -9,7 +9,7 @@ import (
 )
 
 type Author struct {
-	ID   int32
+	ID   int64
 	Name string
 	Bio  pgtype.Text
 }

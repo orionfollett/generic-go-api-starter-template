@@ -3,8 +3,10 @@ We use a CLI tool called golang-migrate.
 
 To create a migration: 
 ```
-migrate create -ext sql -dir db/migrations -seq <HUMAN READABLE NAME OF MIGRATION>
+make create-migration NAME=<migration name>
 ```
+To run a migration up:
+
 
 
 ## SQL Mapping
