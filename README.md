@@ -2,13 +2,19 @@
 
 Required CLI Tools for development:
 
-sqlc
-gqlgen
-golang-migrate: install: 'go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest'
+Install these on your computer, theyre good to have:
 docker
 go
 
-## Tools
+These are included in tools.go, just run 'go mod tidy' and then use the make commands to run them:
+- sqlc
+- gqlgen
+- golang-migrate
+
+Alternatively, you could install them locally, but thats a pain to manage!
+
+
+## Tools Explanation
 
 SQLC: https://docs.sqlc.dev/en/latest/index.html
 This tool is controlled by the sqlc.yaml file
@@ -38,8 +44,6 @@ Git obviously
 
 ## Docker Compose
 '''docker compose up''' To create the db in a locally running container: connection string is: "postgresql://postgres:example@localhost:5432"
-
-
 
 ## Goal
 Goal for this repo is to be a gold standard starter repo to create a go backend application.
