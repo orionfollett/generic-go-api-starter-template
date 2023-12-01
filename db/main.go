@@ -7,7 +7,6 @@ import (
 	"reflect"
 
 	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 func run() error {
@@ -21,31 +20,21 @@ func run() error {
 
 	queries := sqlc.New(conn)
 
-	// list all authors
-	authors, err := queries.ListAuthors(ctx)
+	// create a run
+	insertedRun, err := queries.CreateRun(ctx, "run1")
 	if err != nil {
 		return err
 	}
-	log.Println(authors)
+	log.Println(insertedRun)
 
-	// create an author
-	insertedAuthor, err := queries.CreateAuthor(ctx, sqlc.CreateAuthorParams{
-		Name: "Brian Kernighan",
-		Bio:  pgtype.Text{String: "Co-author of The C Programming Language and The Go Programming Language", Valid: true},
-	})
-	if err != nil {
-		return err
-	}
-	log.Println(insertedAuthor)
-
-	// get the author we just inserted
-	fetchedAuthor, err := queries.GetAuthor(ctx, insertedAuthor.ID)
+	// get the run we just inserted
+	fetchedRun, err := queries.GetRun(ctx, insertedRun.ID)
 	if err != nil {
 		return err
 	}
 
 	// prints true
-	log.Println(reflect.DeepEqual(insertedAuthor, fetchedAuthor))
+	log.Println(reflect.DeepEqual(insertedRun, fetchedRun))
 	return nil
 }
 

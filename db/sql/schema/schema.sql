@@ -1,5 +1,4 @@
-CREATE TABLE authors (
+CREATE TABLE runs (
   id   BIGSERIAL PRIMARY KEY,
-  name text      NOT NULL,
-  bio  text
+  title text      NOT NULL
 );

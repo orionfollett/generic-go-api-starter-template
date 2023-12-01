@@ -4,12 +4,9 @@
 
 package generated
 
-import (
-	"github.com/jackc/pgx/v5/pgtype"
-)
+import ()
 
-type Author struct {
-	ID   int64
-	Name string
-	Bio  pgtype.Text
+type Run struct {
+	ID    int64
+	Title string
 }

@@ -7,95 +7,32 @@ package generated
 
 import (
 	"context"
-
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
-const createAuthor = `-- name: CreateAuthor :one
-INSERT INTO authors (
-  name, bio
+const createRun = `-- name: CreateRun :one
+INSERT INTO runs (
+  title
 ) VALUES (
-  $1, $2
+  $1
 )
-RETURNING id, name, bio
+RETURNING id, title
 `
 
-type CreateAuthorParams struct {
-	Name string
-	Bio  pgtype.Text
-}
-
-func (q *Queries) CreateAuthor(ctx context.Context, arg CreateAuthorParams) (Author, error) {
-	row := q.db.QueryRow(ctx, createAuthor, arg.Name, arg.Bio)
-	var i Author
-	err := row.Scan(&i.ID, &i.Name, &i.Bio)
+func (q *Queries) CreateRun(ctx context.Context, title string) (Run, error) {
+	row := q.db.QueryRow(ctx, createRun, title)
+	var i Run
+	err := row.Scan(&i.ID, &i.Title)
 	return i, err
 }
 
-const deleteAuthor = `-- name: DeleteAuthor :exec
-DELETE FROM authors
-WHERE id = $1
-`
-
-func (q *Queries) DeleteAuthor(ctx context.Context, id int64) error {
-	_, err := q.db.Exec(ctx, deleteAuthor, id)
-	return err
-}
-
-const getAuthor = `-- name: GetAuthor :one
-SELECT id, name, bio FROM authors
+const getRun = `-- name: GetRun :one
+SELECT id, title FROM runs
 WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) GetAuthor(ctx context.Context, id int64) (Author, error) {
-	row := q.db.QueryRow(ctx, getAuthor, id)
-	var i Author
-	err := row.Scan(&i.ID, &i.Name, &i.Bio)
-	return i, err
-}
-
-const listAuthors = `-- name: ListAuthors :many
-SELECT id, name, bio FROM authors
-ORDER BY name
-`
-
-func (q *Queries) ListAuthors(ctx context.Context) ([]Author, error) {
-	rows, err := q.db.Query(ctx, listAuthors)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []Author
-	for rows.Next() {
-		var i Author
-		if err := rows.Scan(&i.ID, &i.Name, &i.Bio); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
-const updateAuthor = `-- name: UpdateAuthor :one
-UPDATE authors
-  set name = $2,
-  bio = $3
-WHERE id = $1
-RETURNING id, name, bio
-`
-
-type UpdateAuthorParams struct {
-	ID   int64
-	Name string
-	Bio  pgtype.Text
-}
-
-func (q *Queries) UpdateAuthor(ctx context.Context, arg UpdateAuthorParams) (Author, error) {
-	row := q.db.QueryRow(ctx, updateAuthor, arg.ID, arg.Name, arg.Bio)
-	var i Author
-	err := row.Scan(&i.ID, &i.Name, &i.Bio)
+func (q *Queries) GetRun(ctx context.Context, id int64) (Run, error) {
+	row := q.db.QueryRow(ctx, getRun, id)
+	var i Run
+	err := row.Scan(&i.ID, &i.Title)
 	return i, err
 }
