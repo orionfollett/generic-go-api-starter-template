@@ -1,3 +1,5 @@
+include .env.develop
+
 #---build and run---
 
 build-server:
@@ -19,18 +21,16 @@ gen-db:
 
 #---db migrations---
 
-#This command takes the form: "make create-migration NAME=<enter human readable migration name here>"
-#It will create a blank up and down migration file for you in the correct directory
-create-migration:
+
+#Ex: "make create-migration NAME=<name of migration>"
+create-migration: 
 	go run github.com/golang-migrate/migrate/v4/cmd/migrate create -ext sql -dir db/migrations -seq $(NAME)
 
 up:
-	migrate -database ${POSTGRESQL_URL} -path db/migrations up
+	go run -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate -database ${POSTGRESQL_URL} -path db/migrations up
 
 down:
-	migrate -database ${POSTGRESQL_URL} -path db/migrations down
-
-#export POSTGRESQL_URL=postgres://postgres:example@localhost:5432/postgres?sslmode=disable
+	go run -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate -database ${POSTGRESQL_URL} -path db/migrations down
 
 #---install dependencies---
 #go mod tidy
