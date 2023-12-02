@@ -13,7 +13,10 @@ import (
 
 // CreateRun is the resolver for the createRun field.
 func (r *mutationResolver) CreateRun(ctx context.Context, input model.NewRun) (*model.Run, error) {
-	panic(fmt.Errorf("not implemented: CreateRun - createRun"))
+	//panic(fmt.Errorf("not implemented: CreateRun - createRun"))
+	_, err := r.QUERIES.CreateRun(ctx, input.Title)
+
+	return nil, err
 }
 
 // Runs is the resolver for the runs field.
