@@ -13,15 +13,21 @@ import (
 
 // CreateRun is the resolver for the createRun field.
 func (r *mutationResolver) CreateRun(ctx context.Context, input model.NewRun) (*model.Run, error) {
-	//panic(fmt.Errorf("not implemented: CreateRun - createRun"))
-	_, err := r.QUERIES.CreateRun(ctx, input.Title)
 
-	return nil, err
+	run_db_model, err := r.Resolver.QUERIES.CreateRun(ctx, input.Title)
+
+	if err != nil {
+		return nil, err
+	}
+
+	run := model.Run{ID: fmt.Sprint(run_db_model.ID), Title: run_db_model.Title}
+
+	return &run, err
 }
 
 // Runs is the resolver for the runs field.
 func (r *queryResolver) Runs(ctx context.Context) ([]*model.Run, error) {
-	panic(fmt.Errorf("not implemented: Runs - runs"))
+
 }
 
 // Mutation returns generated.MutationResolver implementation.

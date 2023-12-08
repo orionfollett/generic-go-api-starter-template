@@ -26,10 +26,20 @@ func main() {
 		port = defaultPort
 	}
 
+	//ctx := context.Background()
+
+	//conn, _ := pgx.Connect(ctx, "postgres://postgres:example@localhost:5432")
+
+	//defer conn.Close(ctx)
+
+	//queries := sqlc.New(conn)
+
 	ctx := context.Background()
 
-	conn, _ := pgx.Connect(ctx, "postgres://postgres:example@localhost:5432")
-
+	conn, err := pgx.Connect(ctx, "postgres://postgres:example@localhost:5432")
+	if err != nil {
+		panic(err)
+	}
 	defer conn.Close(ctx)
 
 	queries := sqlc.New(conn)
